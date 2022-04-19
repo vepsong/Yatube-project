@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if is_edit %}Редактировать пост за нумѣромъ: {{ post.pk }}
+{% else %}Новый пост
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 p-5">
+      <div class="card">
+        <div class="card-header">
+          {% if is_edit %}Редактировать пост за нумѣромъ: {{ post.pk }}
+          {% else %}Новый пост
+          {% endif %}    
+        </div>
+
+        <div class="card-body">
+          
+          {% include 'includes/validator.html' %}    
+            
+          {% if is_edit %} 
+          <form method="post" enctype="multipart/form-data" action="{% url 'posts:post_edit' post.pk %}">
+          {% else %} 
+          <form method="post" enctype="multipart/form-data" action="{% url 'posts:post_create' %}">
+          {% endif %}
+
+            {% csrf_token %}
+
+            
+            {% include 'includes/form.html' %}
+            
+
+            <div class="d-flex justify-content-center p-2">
+              <button type="submit" class="btn btn-primary">
+                {% if is_edit %}Сохранить
+                {% else %}Добавить
+                {% endif %}
+              </button>
+            </div>
+          </form>
+        </div> <!-- card body -->
+      </div> <!-- card -->
+    </div> <!-- col -->
+  </div> <!-- row -->
+</div> <!-- container -->
+
+{% endblock %}

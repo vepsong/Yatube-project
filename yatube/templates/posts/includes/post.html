@@ -1,0 +1,49 @@
+<article>
+  
+    <ul>
+      {% if show_author %}
+      {% if post.author.get_full_name %}
+
+      <li>
+        Автор:
+        <a href="{% url 'posts:profile' post.author %}" title='Все посты пользователя'>
+         {{ post.author.get_full_name }}
+        </a>
+      </li>
+
+
+      {% endif %}
+      {% endif %}
+
+
+      <li>
+        Дата публикации: {{ post.pub_date|date:"d E Y" }}
+      </li>
+    
+
+    {% if show_group %}
+    {% if post.group %}
+    <li>
+      Группа:
+      <a href="{% url 'posts:group_post' post.group.slug %}" title='Все посты группы'>
+      {{ post.group.title }}
+      </a>
+    </li>
+    {% endif %}
+    {% endif %}
+
+    {% if show_post_num %}
+    <li>
+      Постъ нумѣръ: {{ post.pk }}
+    </li>
+    {% endif %}
+    </ul>
+    <div>
+    {% if slice_text %}
+    <p>{{ post.text|slice:":500"|linebreaks }}</p>
+    {% else %}
+    <p>{{ post.text|linebreaks }}</p>
+    {% endif %}
+    </div>
+
+</article>

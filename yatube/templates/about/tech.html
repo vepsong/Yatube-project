@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Технологии{% endblock %}
+{% block content %}
+{% comment %} Колонки с отступом сверху и снизу {% endcomment %}
+
+<div class="container py-3">
+    <div class="row">
+        <h1>Могу или не умею, вот в чем вопрос...</h1>
+        <article class="col-12 col-md-9">
+            <p>Я могу все, в теории. На практике иногда бывают проблемки, но они решаемы</p>
+            <p>Ниже представлен список компетенций:</p>
+        </article>
+        <div class="col-md-12">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    Python
+                </li>
+                <li class="list-group-item">
+                    Django
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %} 

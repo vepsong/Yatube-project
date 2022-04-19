@@ -1,0 +1,18 @@
+<h4>Всего комментариев к посту: {{ post.comments.all.count }}</h4>
+{% for comment in comments %}
+  <div class="media mb-4">
+    <div class="media-body">
+      <h5 class="mt-0">
+        Комментарий пользователя
+        <a href="{% url 'posts:profile' comment.author.username %}">
+          {{ comment.author.get_full_name }}
+        </a>     
+      </h5>
+      <h6>от: {{ comment.pub_date }}</h6>
+        <p>
+         {{ comment.text }}
+        </p>
+      </div>
+    </div>
+{% endfor %}
+{% include 'posts/includes/paginator.html' %}
