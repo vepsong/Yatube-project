@@ -11,7 +11,7 @@
         <h3>Всего постов: {{ author.posts.count }} </h3>
         <h3>Всего подписчиков: {{ author.following.all.count }} </h3>
         <h3>Всего подписок: {{ author.follower.all.count }} </h3>
-    {% if author.username != user.username%}
+    {% if author.pk != user.pk%}
       {% if follower %}
         <a
           class="btn btn-lg btn-light"

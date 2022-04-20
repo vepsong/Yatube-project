@@ -17,7 +17,7 @@ def paginator(queryset, request):
 
 def index(request):
     """Фунция вызова главной страницы."""
-    get_posts = Post.objects.all()
+    get_posts = Post.objects.select_related('group', 'author').all()
     context = {
         'page_obj': paginator(get_posts, request),
     }
@@ -40,24 +40,18 @@ def profile(request, username):
     author = get_object_or_404(User, username=username)
     get_posts = author.posts.all().order_by('-pub_date')
 
-    if request.user.is_authenticated:
-        context = {
-            'author': author,
-            'page_obj': paginator(get_posts, request),
-            'follower': Follow.objects.filter(
-                user=request.user,
-                author=author,
-            ),
-            'following': Follow.objects.filter(
-                user=request.user,
-                author=author,
-            ),
-        }
-    else:
-        context = {
-            'author': author,
-            'page_obj': paginator(get_posts, request),
-        }
+    follower = request.user.is_authenticated and \
+        Follow.objects.filter(
+            user=request.user,
+            author=author,
+        ).exists()
+
+    context = {
+        'author': author,
+        'page_obj': paginator(get_posts, request),
+        'follower': follower,
+    }
+
     return render(request, 'posts/profile.html', context)
 
 
@@ -153,14 +147,8 @@ def profile_follow(request, username):
 
     if author == request.user:
         return redirect_address
-    follower = Follow.objects.filter(
-        user=request.user,
-        author=author
-    ).exists()
 
-    if follower is True:
-        return redirect_address
-    Follow.objects.create(user=request.user, author=author)
+    Follow.objects.get_or_create(user=request.user, author=author)
     return redirect_address
 
 

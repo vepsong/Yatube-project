@@ -1,7 +1,6 @@
-# from core.models import CreatedModel
 from django.contrib import admin
 
-from .models import Comment, Group, Post
+from .models import Comment, Group, Post, Follow
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -23,6 +22,16 @@ class CommentAdmin(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
 
+class FollowAdmin(admin.ModelAdmin):
+    """Класс для создания в странички с подписками в админ. панели."""
+
+    list_display = ('pk', 'user', 'author')
+    search_fields = ('user',)
+    list_filter = ('user', 'author')
+    empty_value_display = '-пусто-'
+
+
 admin.site.register(Post, PostAdmin)
 admin.site.register(Group)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(Follow, FollowAdmin)

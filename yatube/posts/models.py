@@ -106,7 +106,8 @@ class Follow(CreatedModel):
     )
 
     class Meta:
-        UniqueConstraint(
+        db_table = 'Follow'
+        constraints = [UniqueConstraint(
             fields=['user', 'author'],
-            name='unique_follower'
-        )
+            name='unique_follower'),
+        ]
