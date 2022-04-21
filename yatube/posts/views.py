@@ -40,11 +40,11 @@ def profile(request, username):
     author = get_object_or_404(User, username=username)
     get_posts = author.posts.all().order_by('-pub_date')
 
-    follower = request.user.is_authenticated and \
+    follower = (request.user.is_authenticated) and (
         Follow.objects.filter(
             user=request.user,
             author=author,
-        ).exists()
+        ).exists())
 
     context = {
         'author': author,
