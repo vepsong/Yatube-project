@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+from dotenv import load_dotenv
+
 # from pickle import FALSE
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -22,10 +24,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'oj-lv&!5wng^zuduk-@w&)6zv4(*$(b!9m2e$=&^cp$$e3f(i#'
+load_dotenv()
+SECRET_KEY = os.getenv(BASE_DIR, 'SECRET_KEY')
+# SECRET_KEY = 'oj-lv&!5wng^zuduk-@w&)6zv4(*$(b!9m2e$=&^cp$$e3f(i#'
+# SECRET_KEY = 'k$8+f)v5^*y=#)@65hpb%*4nm+4pdzq#-0yr3l!u-egmo#(8ci'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'localhost',
